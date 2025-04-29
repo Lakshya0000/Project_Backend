@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 const genai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 app.get("/", (req, res) => {
-    res.send("Gemini backend is running.");
+    res.json({ message: "Hello from Gemini API!" });
 });
 
 app.post("/chat", async (req, res) => {
