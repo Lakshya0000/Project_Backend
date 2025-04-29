@@ -2,16 +2,21 @@ import express from "express";
 import pkg from "body-parser";
 import { config } from "dotenv";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import cors from "cors";
 
 config();
 const { json } = pkg;
 const app = express();
 app.use(json());
-
+app.use(cors());
 const MODEL_NAME = "gemini-2.0-flash";
-const PORT = 3001;
+const PORT = process.env.PORT || 3000;
 
 const genai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+app.get("/", (req, res) => {
+    res.send("Gemini backend is running.");
+});
 
 app.post("/chat", async (req, res) => {
   const { personality, history, latestMessage } = req.body;
